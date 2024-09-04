@@ -16,11 +16,6 @@ enum AuthProvider {
   GOOGLE
 }
 
-enum DebateSide {
-  LEFT
-  RIGHT
-}
-
 model User {
   id                 String        @id @default(uuid())
   authProvider       AuthProvider
@@ -30,8 +25,6 @@ model User {
   fullname           String
   profilePictureURL  String
   tokens             Token[]
-  createdDebates     Debate[]
-  participations     DebateParticipation[]
 }
 
 model Token {
@@ -46,33 +39,6 @@ model Token {
 model Category {
   id       String    @id @default(uuid())
   name     String    @unique
-  debates  Debate[]
 
   // @@fulltext([name])
-}
-
-model Debate {
-  id              String      @id @default(uuid())
-  createdAt       DateTime    @default(now())
-  creatorId       String     
-  creator         User        @relation(fields: [creatorId], references: [id])
-  title           String
-  description     String
-  leftSide        String
-  rightSide       String
-  categories      Category[]
-  participations  DebateParticipation[]
-
-  // @@fulltext([title, description, leftSide, rightSide])
-}
-
-model DebateParticipation {
-  user       User      @relation(fields: [userId], references: [id])
-  userId     String
-  debate     Debate    @relation(fields: [debateId], references: [id])
-  debateId   String
-  enteredAt  DateTime  @default(now())
-  side       DebateSide
-
-  @@id([userId, debateId])
 }

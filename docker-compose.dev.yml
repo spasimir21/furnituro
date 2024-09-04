@@ -14,9 +14,7 @@ services:
     depends_on:
       - furnituro-ssr
       - furnituro-category
-      - furnituro-debate
       - furnituro-user
-      - furnituro-argument
       - furnituro-rating
       - furnituro-auth
   furnituro-database:
