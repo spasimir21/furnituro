@@ -1,0 +1,143 @@
+version: '3'
+
+services:
+  dialogic-nginx:
+    image: nginx:stable-alpine
+    env_file:
+      - ./env/.nginx.env
+    ports:
+      - 80:80
+    volumes:
+      - ./config/nginx:/etc/nginx/conf.d
+      - ./dist:/var/www/dist/
+      - ./public:/var/www/public
+    depends_on:
+      - dialogic-ssr
+      - dialogic-category
+      - dialogic-debate
+      - dialogic-user
+      - dialogic-argument
+      - dialogic-rating
+      - dialogic-auth
+  dialogic-database:
+    image: postgres
+    restart: always
+    env_file:
+      - ./env/.database.env
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready']
+      interval: 3s
+      timeout: 30s
+      retries: 10
+    volumes:
+      - ./database:/var/lib/postgresql/data
+  dialogic-ssr:
+    build:
+      context: ./
+      dockerfile: ./containers/dev/service.dockerfile
+      args:
+        - SERVICE=ssr
+    env_file:
+      - ./env/.shared.env
+      - ./env/.ssr.env
+    volumes:
+      - ./config/ssr.yml:/app/config/ssr.yml
+      - ./dist:/app/dist
+      - ./proto:/app/proto
+  dialogic-category:
+    build:
+      context: ./
+      dockerfile: ./containers/dev/service.dockerfile
+      args:
+        - SERVICE=category
+    env_file:
+      - ./env/.shared.env
+      - ./env/.category.env
+    volumes:
+      - ./config/server.shared.yml:/app/config/server.shared.yml
+      - ./config/category.yml:/app/config/category.yml
+      - ./dist:/app/dist
+      - ./proto:/app/proto
+    depends_on:
+      - dialogic-auth
+  dialogic-debate:
+    build:
+      context: ./
+      dockerfile: ./containers/dev/service.dockerfile
+      args:
+        - SERVICE=debate
+    env_file:
+      - ./env/.shared.env
+      - ./env/.debate.env
+    volumes:
+      - ./config/server.shared.yml:/app/config/server.shared.yml
+      - ./config/debate.yml:/app/config/debate.yml
+      - ./dist:/app/dist
+      - ./proto:/app/proto
+    depends_on:
+      - dialogic-auth
+  dialogic-user:
+    build:
+      context: ./
+      dockerfile: ./containers/dev/service.dockerfile
+      args:
+        - SERVICE=user
+    env_file:
+      - ./env/.shared.env
+      - ./env/.user.env
+    volumes:
+      - ./config/server.shared.yml:/app/config/server.shared.yml
+      - ./config/user.yml:/app/config/user.yml
+      - ./dist:/app/dist
+      - ./proto:/app/proto
+    depends_on:
+      - dialogic-auth
+  dialogic-argument:
+    build:
+      context: ./
+      dockerfile: ./containers/dev/service.dockerfile
+      args:
+        - SERVICE=argument
+    env_file:
+      - ./env/.shared.env
+      - ./env/.argument.env
+    volumes:
+      - ./config/server.shared.yml:/app/config/server.shared.yml
+      - ./config/argument.yml:/app/config/argument.yml
+      - ./dist:/app/dist
+      - ./proto:/app/proto
+    depends_on:
+      - dialogic-auth
+  dialogic-rating:
+    build:
+      context: ./
+      dockerfile: ./containers/dev/service.dockerfile
+      args:
+        - SERVICE=rating
+    env_file:
+      - ./env/.shared.env
+      - ./env/.rating.env
+    volumes:
+      - ./config/server.shared.yml:/app/config/server.shared.yml
+      - ./config/rating.yml:/app/config/rating.yml
+      - ./dist:/app/dist
+      - ./proto:/app/proto
+    depends_on:
+      - dialogic-auth
+  dialogic-auth:
+    build:
+      context: ./
+      dockerfile: ./containers/dev/service.dockerfile
+      args:
+        - SERVICE=auth
+    env_file:
+      - ./env/.shared.env
+      - ./env/.auth.env
+    volumes:
+      - ./config/server.shared.yml:/app/config/server.shared.yml
+      - ./config/auth.yml:/app/config/auth.yml
+      - ./dist:/app/dist
+      - ./proto:/app/proto
+    depends_on:
+      dialogic-database:
+        condition: service_healthy

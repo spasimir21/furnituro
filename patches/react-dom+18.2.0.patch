@@ -1,0 +1,96 @@
+diff --git a/node_modules/react-dom/cjs/react-dom.development.js b/node_modules/react-dom/cjs/react-dom.development.js
+index e4ed5ae..20417cc 100644
+--- a/node_modules/react-dom/cjs/react-dom.development.js
++++ b/node_modules/react-dom/cjs/react-dom.development.js
+@@ -11280,7 +11280,25 @@ function getNextHydratableSibling(instance) {
+   return getNextHydratable(instance.nextSibling);
+ }
+ function getFirstHydratableChild(parentInstance) {
+-  return getNextHydratable(parentInstance.firstChild);
++  if (parentInstance && parentInstance.tagName.toLowerCase() === 'script' && parentInstance.getAttribute('type') === 'rhc/script') {
++    const div = document.createElement('div');
++    div.innerHTML = parentInstance.textContent;
++
++    const script = document.createElement('script');
++
++    for (const child of Array.from(div.childNodes)) script.appendChild(child);
++
++    parentInstance.replaceWith(script);
++    parentInstance = script;
++  }
++
++  if (!parentInstance.hasAttribute('rhc-tes')) return getNextHydratable(parentInstance.firstChild);
++
++  const targetContainer = parentInstance.parentElement.previousElementSibling;
++
++  const target = targetContainer.querySelector(`[rhc-target="${parentInstance.getAttribute('rhc-tes')}"]`);
++
++  return getNextHydratable(target.firstChild);
+ }
+ function getFirstHydratableChildWithinContainer(parentContainer) {
+   return getNextHydratable(parentContainer.firstChild);
+@@ -11289,6 +11307,16 @@ function getFirstHydratableChildWithinSuspenseInstance(parentInstance) {
+   return getNextHydratable(parentInstance.nextSibling);
+ }
+ function hydrateInstance(instance, type, props, rootContainerInstance, hostContext, internalInstanceHandle, shouldWarnDev) {
++  if (instance.hasAttribute('rhc-tes')) {
++    const targetContainer = instance.parentElement.previousElementSibling;
++
++    const target = targetContainer.querySelector(`[rhc-target="${instance.getAttribute('rhc-tes')}"]`);
++    instance = target;
++
++    internalInstanceHandle.stateNode = target;
++    if (internalInstanceHandle.alternate) internalInstanceHandle.alternate.stateNode = target;
++  }
++
+   precacheFiberNode(internalInstanceHandle, instance); // TODO: Possibly defer this until the commit phase where all the events
+   // get attached.
+ 
+diff --git a/node_modules/react-dom/umd/react-dom.development.js b/node_modules/react-dom/umd/react-dom.development.js
+index aadc619..ae3e3c5 100644
+--- a/node_modules/react-dom/umd/react-dom.development.js
++++ b/node_modules/react-dom/umd/react-dom.development.js
+@@ -11290,7 +11290,25 @@
+     return getNextHydratable(instance.nextSibling);
+   }
+   function getFirstHydratableChild(parentInstance) {
+-    return getNextHydratable(parentInstance.firstChild);
++    if (parentInstance && parentInstance.tagName.toLowerCase() === 'script' && parentInstance.getAttribute('type') === 'rhc/script') {
++      const div = document.createElement('div');
++      div.innerHTML = parentInstance.textContent;
++  
++      const script = document.createElement('script');
++  
++      for (const child of Array.from(div.childNodes)) script.appendChild(child);
++  
++      parentInstance.replaceWith(script);
++      parentInstance = script;
++    }
++  
++    if (!parentInstance.hasAttribute('rhc-tes')) return getNextHydratable(parentInstance.firstChild);
++  
++    const targetContainer = parentInstance.parentElement.previousElementSibling;
++  
++    const target = targetContainer.querySelector(`[rhc-target="${parentInstance.getAttribute('rhc-tes')}"]`);
++  
++    return getNextHydratable(target.firstChild);
+   }
+   function getFirstHydratableChildWithinContainer(parentContainer) {
+     return getNextHydratable(parentContainer.firstChild);
+@@ -11299,6 +11317,16 @@
+     return getNextHydratable(parentInstance.nextSibling);
+   }
+   function hydrateInstance(instance, type, props, rootContainerInstance, hostContext, internalInstanceHandle, shouldWarnDev) {
++    if (instance.hasAttribute('rhc-tes')) {
++      const targetContainer = instance.parentElement.previousElementSibling;
++  
++      const target = targetContainer.querySelector(`[rhc-target="${instance.getAttribute('rhc-tes')}"]`);
++      instance = target;
++  
++      internalInstanceHandle.stateNode = target;
++      if (internalInstanceHandle.alternate) internalInstanceHandle.alternate.stateNode = target;
++    }
++    
+     precacheFiberNode(internalInstanceHandle, instance); // TODO: Possibly defer this until the commit phase where all the events
+     // get attached.
+ 

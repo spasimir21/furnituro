@@ -1,0 +1,18 @@
+{
+  "esModules": [
+    "@fortawesome/free-brands-svg-icons",
+    "@fortawesome/fontawesome-svg-core",
+    "@fortawesome/free-solid-svg-icons",
+    "@fortawesome/react-fontawesome",
+    "react-router-dom",
+    "framer-motion",
+    "react-cookie",
+    "js-base64",
+    "jotai",
+    "react-dom/client",
+    "react-dom/server",
+    "node-html-parser",
+    "jotai/utils"
+  ],
+  "commonJsModules": ["react", "react-dom"]
+}

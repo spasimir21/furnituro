@@ -1,0 +1,5 @@
+{
+  "imports": {
+    "/dependencies.js": "file:///app/dist/dependencies_node.js"
+  }
+}

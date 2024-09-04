@@ -1,0 +1,78 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  previewFeatures = ["fullTextSearch", "fullTextIndex"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum AuthProvider {
+  EMAIL
+  GOOGLE
+}
+
+enum DebateSide {
+  LEFT
+  RIGHT
+}
+
+model User {
+  id                 String        @id @default(uuid())
+  authProvider       AuthProvider
+  createdAt          DateTime      @default(now())
+  email              String        @unique
+  password           String?
+  fullname           String
+  profilePictureURL  String
+  tokens             Token[]
+  createdDebates     Debate[]
+  participations     DebateParticipation[]
+}
+
+model Token {
+  id                   String    @id @default(uuid())
+  refreshSecret        String
+  refreshExpiration    DateTime
+  refreshDateOfDeath   DateTime
+  userId               String     
+  user                 User      @relation(fields: [userId], references: [id])
+}
+
+model Category {
+  id       String    @id @default(uuid())
+  name     String    @unique
+  debates  Debate[]
+
+  // @@fulltext([name])
+}
+
+model Debate {
+  id              String      @id @default(uuid())
+  createdAt       DateTime    @default(now())
+  creatorId       String     
+  creator         User        @relation(fields: [creatorId], references: [id])
+  title           String
+  description     String
+  leftSide        String
+  rightSide       String
+  categories      Category[]
+  participations  DebateParticipation[]
+
+  // @@fulltext([title, description, leftSide, rightSide])
+}
+
+model DebateParticipation {
+  user       User      @relation(fields: [userId], references: [id])
+  userId     String
+  debate     Debate    @relation(fields: [debateId], references: [id])
+  debateId   String
+  enteredAt  DateTime  @default(now())
+  side       DebateSide
+
+  @@id([userId, debateId])
+}

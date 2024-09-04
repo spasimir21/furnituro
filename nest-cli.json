@@ -1,0 +1,41 @@
+{
+  "collection": "@nestjs/schematics",
+  "monorepo": true,
+  "projects": {
+    "ssr": {
+      "type": "application",
+      "root": "services/ssr",
+      "sourceRoot": "services/ssr"
+    },
+    "category": {
+      "type": "application",
+      "root": "services/category",
+      "sourceRoot": "services/category"
+    },
+    "debate": {
+      "type": "application",
+      "root": "services/debate",
+      "sourceRoot": "services/debate"
+    },
+    "user": {
+      "type": "application",
+      "root": "services/user",
+      "sourceRoot": "services/user"
+    },
+    "argument": {
+      "type": "application",
+      "root": "services/argument",
+      "sourceRoot": "services/argument"
+    },
+    "rating": {
+      "type": "application",
+      "root": "services/rating",
+      "sourceRoot": "services/rating"
+    },
+    "auth": {
+      "type": "application",
+      "root": "services/auth",
+      "sourceRoot": "services/auth"
+    }
+  }
+}

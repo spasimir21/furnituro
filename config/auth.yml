@@ -1,0 +1,12 @@
+token:
+  expiresIn: 3m
+
+refreshToken:
+  expiresInDays: 3
+  daysToDeath: 7
+
+password:
+  saltRounds: 10
+
+oauth:
+  googleAppId: 757962824139-o3erncpmc9rqtshvq440ainjsfdu52ft.apps.googleusercontent.com

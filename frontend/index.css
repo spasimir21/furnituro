@@ -1,0 +1,7 @@
+@tailwind components;
+@tailwind utilities;
+@tailwind base;
+
+.button {
+  @apply pl-[15px] pr-[15px] pt-[5px] pb-[5px] h-[40px] bg-primary font-sans text-[20px] font-semibold text-white rounded duration-[0.15s] backdrop-filter hover:backdrop-brightness-105 cursor-pointer;
+}

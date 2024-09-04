@@ -1,0 +1,4 @@
+publicBaseUrl: http://dialogic.com
+
+serviceToken:
+  expiresIn: 1m
