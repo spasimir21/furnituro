@@ -12,7 +12,7 @@ const UserClientModule = ClientsModule.register([
     options: {
       package: 'user',
       protoPath: './proto/user.proto',
-      url: `dialogic-user:${process.env.SERVICE_PORT}`
+      url: `furnituro-user:${process.env.SERVICE_PORT}`
     }
   }
 ]);
@@ -20,3 +20,4 @@ const UserClientModule = ClientsModule.register([
 const getUserClient = (client: ClientGrpc) => client.getService<UserClient>('UserService');
 
 export { USER_CLIENT, UserClientModule, UserClient, getUserClient };
+

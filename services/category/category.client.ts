@@ -17,7 +17,7 @@ const CategoryClientModule = ClientsModule.register([
     options: {
       package: 'category',
       protoPath: './proto/category.proto',
-      url: `dialogic-category:${process.env.SERVICE_PORT}`
+      url: `furnituro-category:${process.env.SERVICE_PORT}`
     }
   }
 ]);
@@ -25,3 +25,4 @@ const CategoryClientModule = ClientsModule.register([
 const getCategoryClient = (client: ClientGrpc) => client.getService<CategoryClient>('CategoryService');
 
 export { CATEGORY_CLIENT, CategoryClientModule, CategoryClient, getCategoryClient };
+

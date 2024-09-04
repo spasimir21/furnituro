@@ -1,7 +1,7 @@
 version: '3'
 
 services:
-  dialogic-nginx:
+  furnituro-nginx:
     image: nginx:stable-alpine
     env_file:
       - ./env/.nginx.env
@@ -12,14 +12,14 @@ services:
       - ./dist:/var/www/dist/
       - ./public:/var/www/public
     depends_on:
-      - dialogic-ssr
-      - dialogic-category
-      - dialogic-debate
-      - dialogic-user
-      - dialogic-argument
-      - dialogic-rating
-      - dialogic-auth
-  dialogic-database:
+      - furnituro-ssr
+      - furnituro-category
+      - furnituro-debate
+      - furnituro-user
+      - furnituro-argument
+      - furnituro-rating
+      - furnituro-auth
+  furnituro-database:
     image: postgres
     restart: always
     env_file:
@@ -31,7 +31,7 @@ services:
       retries: 10
     volumes:
       - ./database:/var/lib/postgresql/data
-  dialogic-ssr:
+  furnituro-ssr:
     build:
       context: ./
       dockerfile: ./containers/dev/service.dockerfile
@@ -44,7 +44,7 @@ services:
       - ./config/ssr.yml:/app/config/ssr.yml
       - ./dist:/app/dist
       - ./proto:/app/proto
-  dialogic-category:
+  furnituro-category:
     build:
       context: ./
       dockerfile: ./containers/dev/service.dockerfile
@@ -59,24 +59,8 @@ services:
       - ./dist:/app/dist
       - ./proto:/app/proto
     depends_on:
-      - dialogic-auth
-  dialogic-debate:
-    build:
-      context: ./
-      dockerfile: ./containers/dev/service.dockerfile
-      args:
-        - SERVICE=debate
-    env_file:
-      - ./env/.shared.env
-      - ./env/.debate.env
-    volumes:
-      - ./config/server.shared.yml:/app/config/server.shared.yml
-      - ./config/debate.yml:/app/config/debate.yml
-      - ./dist:/app/dist
-      - ./proto:/app/proto
-    depends_on:
-      - dialogic-auth
-  dialogic-user:
+      - furnituro-auth
+  furnituro-user:
     build:
       context: ./
       dockerfile: ./containers/dev/service.dockerfile
@@ -91,24 +75,8 @@ services:
       - ./dist:/app/dist
       - ./proto:/app/proto
     depends_on:
-      - dialogic-auth
-  dialogic-argument:
-    build:
-      context: ./
-      dockerfile: ./containers/dev/service.dockerfile
-      args:
-        - SERVICE=argument
-    env_file:
-      - ./env/.shared.env
-      - ./env/.argument.env
-    volumes:
-      - ./config/server.shared.yml:/app/config/server.shared.yml
-      - ./config/argument.yml:/app/config/argument.yml
-      - ./dist:/app/dist
-      - ./proto:/app/proto
-    depends_on:
-      - dialogic-auth
-  dialogic-rating:
+      - furnituro-auth
+  furnituro-rating:
     build:
       context: ./
       dockerfile: ./containers/dev/service.dockerfile
@@ -123,8 +91,8 @@ services:
       - ./dist:/app/dist
       - ./proto:/app/proto
     depends_on:
-      - dialogic-auth
-  dialogic-auth:
+      - furnituro-auth
+  furnituro-auth:
     build:
       context: ./
       dockerfile: ./containers/dev/service.dockerfile
@@ -139,5 +107,6 @@ services:
       - ./dist:/app/dist
       - ./proto:/app/proto
     depends_on:
-      dialogic-database:
+      furnituro-database:
         condition: service_healthy
+

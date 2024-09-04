@@ -12,7 +12,7 @@ const RatingClientModule = ClientsModule.register([
     options: {
       package: 'rating',
       protoPath: './proto/rating.proto',
-      url: `dialogic-rating:${process.env.SERVICE_PORT}`
+      url: `furnituro-rating:${process.env.SERVICE_PORT}`
     }
   }
 ]);
@@ -20,3 +20,4 @@ const RatingClientModule = ClientsModule.register([
 const getRatingClient = (client: ClientGrpc) => client.getService<RatingClient>('RatingService');
 
 export { RATING_CLIENT, RatingClientModule, RatingClient, getRatingClient };
+

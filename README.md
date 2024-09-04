@@ -16,4 +16,5 @@
 
 ## Browser
 
-1. Go to `http://dialogic.com`
+1. Go to `http://furnituro.com`
+

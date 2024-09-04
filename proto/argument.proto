@@ -1,8 +1,0 @@
-import "google/protobuf/empty.proto";
-
-syntax = "proto3";
-
-package argument;
-
-service ArgumentService {
-}

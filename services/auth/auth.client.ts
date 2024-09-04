@@ -15,7 +15,7 @@ const AuthClientModule = ClientsModule.register([
     options: {
       package: 'auth',
       protoPath: './proto/auth.proto',
-      url: `dialogic-auth:${process.env.SERVICE_PORT}`
+      url: `furnituro-auth:${process.env.SERVICE_PORT}`
     }
   }
 ]);
@@ -23,3 +23,4 @@ const AuthClientModule = ClientsModule.register([
 const getAuthClient = (client: ClientGrpc) => client.getService<AuthClient>('AuthService');
 
 export { AUTH_CLIENT, AuthClientModule, AuthClient, getAuthClient };
+

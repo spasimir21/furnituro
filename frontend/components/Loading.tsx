@@ -11,9 +11,10 @@ export default function Loading() {
         <img
           className='w-full max-w-[100px] relative inline-flex animate-bounce m-5'
           src='/public/Logo.png'
-          alt='Dialogic'
+          alt='Furnituro'
         />
       </span>
     </div>
   );
 }
+

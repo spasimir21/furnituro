@@ -32,7 +32,7 @@ function createLiveReloadServer(port: number) {
 
     while (true) {
       try {
-        const req = await fetch('http://dialogic.com/');
+        const req = await fetch('http://furnituro.com/');
         if (req.ok) break;
       } catch {}
 
@@ -52,3 +52,4 @@ function createLiveReloadServer(port: number) {
 }
 
 export { createLiveReloadServer };
+

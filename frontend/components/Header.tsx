@@ -28,7 +28,7 @@ export default function Header() {
           <div className='flex items-center ml-[20px] cursor-pointer'>
             <img src='/public/Logo.png' alt='logo' className='w-[50px] inline-block' />
             <p className='inline-block font-serif text-[35px] ml-[15px] text-white [text-shadow:_0_3px_4px_rgb(0_0_0_/_45%)] sm:hidden'>
-              DIALOGIC
+              FURNITURO
             </p>
           </div>
         </SSRLink>
@@ -100,3 +100,4 @@ export default function Header() {
     </header>
   );
 }
+

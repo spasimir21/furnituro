@@ -5,7 +5,7 @@ import { UserModule } from './user.module';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestFastifyApplication>(UserModule, new FastifyAdapter());
-  app.enableCors({ origin: ['http://dialogic.com'] });
+  app.enableCors({ origin: ['http://furnituro.com'] });
 
   // app.connectMicroservice<MicroserviceOptions>({
   //   transport: Transport.GRPC,
@@ -21,3 +21,4 @@ async function bootstrap() {
 }
 
 bootstrap();
+

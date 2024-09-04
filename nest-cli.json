@@ -12,20 +12,10 @@
       "root": "services/category",
       "sourceRoot": "services/category"
     },
-    "debate": {
-      "type": "application",
-      "root": "services/debate",
-      "sourceRoot": "services/debate"
-    },
     "user": {
       "type": "application",
       "root": "services/user",
       "sourceRoot": "services/user"
-    },
-    "argument": {
-      "type": "application",
-      "root": "services/argument",
-      "sourceRoot": "services/argument"
     },
     "rating": {
       "type": "application",
@@ -39,3 +29,4 @@
     }
   }
 }
+

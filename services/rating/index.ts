@@ -5,7 +5,7 @@ import { NestFactory } from '@nestjs/core';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestFastifyApplication>(RatingModule, new FastifyAdapter());
-  app.enableCors({ origin: ['http://dialogic.com'] });
+  app.enableCors({ origin: ['http://furnituro.com'] });
 
   // app.connectMicroservice<MicroserviceOptions>({
   //   transport: Transport.GRPC,
@@ -21,3 +21,4 @@ async function bootstrap() {
 }
 
 bootstrap();
+

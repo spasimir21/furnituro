@@ -1,5 +1,5 @@
 {
-  "name": "dialogic",
+  "name": "furnituro",
   "version": "1.0.0",
   "description": "",
   "type": "module",
@@ -86,13 +86,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/spasimir21/dialogic.git"
+    "url": "git+https://github.com/spasimir21/furnituro.git"
   },
   "bugs": {
-    "url": "https://github.com/spasimir21/dialogic/issues"
+    "url": "https://github.com/spasimir21/furnituro/issues"
   },
-  "homepage": "https://github.com/spasimir21/dialogic#readme",
+  "homepage": "https://github.com/spasimir21/furnituro#readme",
   "keywords": [],
-  "author": "Dialogic Team",
+  "author": "The Vicious Komodo Dragons",
   "license": "MIT"
 }
+

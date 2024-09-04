@@ -25,7 +25,7 @@ const CONFIG = {
   daisyui: {
     themes: [
       {
-        lightDialogic: {
+        lightFurnituro: {
           'primary': '#E87231',
 
           'secondary': '#4782FF',
@@ -44,7 +44,7 @@ const CONFIG = {
 
           'error': '#ef4444'
         },
-        darkDialogic: {
+        darkFurnituro: {
           'primary': '#E87231',
 
           'secondary': '#4782FF',
@@ -69,3 +69,4 @@ const CONFIG = {
 };
 
 export default CONFIG;
+

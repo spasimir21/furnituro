@@ -42,23 +42,9 @@ const category = endpoints(
   }
 );
 
-const debate = endpoints(
-  {
-    request: service(Service.Debate)
-  },
-  {}
-);
-
 const user = endpoints(
   {
     request: service(Service.User)
-  },
-  {}
-);
-
-const argument = endpoints(
-  {
-    request: service(Service.Argument)
   },
   {}
 );
@@ -76,7 +62,8 @@ const requests = endpoints(
     response: catchHttpError,
     error: combine(toHttpError, sendErrorToNotification)
   }),
-  { category, debate, user, argument, rating, auth: authEndpoints }
+  { category, user, rating, auth: authEndpoints }
 );
 
 export { requests };
+

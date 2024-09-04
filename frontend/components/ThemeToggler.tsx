@@ -6,8 +6,8 @@ import { APP_STORE } from '@frontend/store';
 import { useEffect } from 'react';
 import React from 'react';
 
-export const lightTheme = 'lightDialogic';
-export const darkTheme = 'darkDialogic';
+export const lightTheme = 'lightFurnituro';
+export const darkTheme = 'darkFurnituro';
 
 function hasThemeCookie() {
   return getCookie('theme', 'NO_THEME') !== 'NO_THEME';
