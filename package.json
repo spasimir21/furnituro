@@ -11,7 +11,7 @@
     "@aws-sdk/client-s3": "^3.504.0",
     "@blazity/nest-file-fastify": "^1.0.0",
     "@fastify/cors": "^9.0.1",
-    "@fastify/multipart": "^8.1.0",
+    "@fastify/multipart": "^8.3.0",
     "@fastify/websocket": "^8.3.1",
     "@fortawesome/fontawesome-svg-core": "^6.5.1",
     "@fortawesome/free-brands-svg-icons": "^6.5.1",
@@ -19,6 +19,7 @@
     "@fortawesome/react-fontawesome": "^0.2.0",
     "@grpc/grpc-js": "^1.9.11",
     "@grpc/proto-loader": "^0.7.10",
+    "@nest-lab/fastify-multer": "^1.2.0",
     "@nestjs/common": "^10.2.10",
     "@nestjs/core": "^10.2.10",
     "@nestjs/microservices": "^10.2.10",
@@ -50,6 +51,7 @@
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.20.0",
     "rollup-cache": "^2.0.0",
+    "sharp": "^0.33.5",
     "yaml": "^2.3.4"
   },
   "devDependencies": {
@@ -71,6 +73,7 @@
     "@types/react-reconciler": "^0.28.8",
     "@types/rollup": "^0.54.0",
     "@types/rollup-plugin-node-globals": "^1.4.4",
+    "@types/sharp": "^0.32.0",
     "nodemon": "^3.0.1",
     "patch-package": "^8.0.0",
     "prisma": "^5.8.1",
@@ -96,4 +99,3 @@
   "author": "The Vicious Komodo Dragons",
   "license": "MIT"
 }
-

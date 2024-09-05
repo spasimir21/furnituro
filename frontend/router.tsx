@@ -12,7 +12,7 @@ const Leaderboard = lazy(() => import('./pages/Leaderboard.js'));
 const Register = lazy(() => import('./pages/auth/Register.js'));
 const Login = lazy(() => import('./pages/auth/Login.js'));
 const Rules = lazy(() => import('./pages/Rules.js'));
-const Debug = lazy(() => import('./pages/Debug.js'));
+const Admin = lazy(() => import('./pages/Admin.js'));
 
 const router = (
   <BrowserRouter>
@@ -20,8 +20,7 @@ const router = (
       <Route path='/oauth/:provider' element={<OAuth />} />
       <Route element={<RootLayout />}>
         <Route element={<ContentLayout />}>
-          {/* TODO: Remove later */}
-          <Route path='/debug' element={<ProtectedRoute element={<Debug />} />} />
+          <Route path='/admin' element={<ProtectedRoute element={<Admin />} />} />
 
           <Route path='/' element={<Home />} />
           <Route path='/trending' element={<Trending />} />
@@ -39,3 +38,4 @@ const router = (
 );
 
 export { router };
+

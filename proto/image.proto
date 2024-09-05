@@ -1,0 +1,8 @@
+import "google/protobuf/empty.proto";
+
+syntax = "proto3";
+
+package image;
+
+service ImageService {
+}

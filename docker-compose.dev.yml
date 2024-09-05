@@ -13,6 +13,7 @@ services:
       - ./public:/var/www/public
     depends_on:
       - furnituro-ssr
+      - furnituro-image
       - furnituro-category
       - furnituro-user
       - furnituro-rating
@@ -28,7 +29,7 @@ services:
       timeout: 30s
       retries: 10
     volumes:
-      - ./database:/var/lib/postgresql/data
+      - ./data/database:/var/lib/postgresql/data
   furnituro-ssr:
     build:
       context: ./
@@ -42,6 +43,23 @@ services:
       - ./config/ssr.yml:/app/config/ssr.yml
       - ./dist:/app/dist
       - ./proto:/app/proto
+  furnituro-image:
+    build:
+      context: ./
+      dockerfile: ./containers/dev/service.dockerfile
+      args:
+        - SERVICE=image
+    env_file:
+      - ./env/.shared.env
+      - ./env/.image.env
+    volumes:
+      - ./config/server.shared.yml:/app/config/server.shared.yml
+      - ./config/image.yml:/app/config/image.yml
+      - ./dist:/app/dist
+      - ./proto:/app/proto
+      - ./data/images:/app/images
+    depends_on:
+      - furnituro-auth
   furnituro-category:
     build:
       context: ./

@@ -5,7 +5,7 @@ syntax = "proto3";
 package category;
 
 service CategoryService {
-  rpc EnsureCategories(CategoryNames) returns (stream Category) {}
+  rpc CreateCategory(CreateCategory) returns (Category) {}
 }
 
 message Category {
@@ -13,6 +13,6 @@ message Category {
   string name = 2;
 }
 
-message CategoryNames {
-  repeated string names = 1;
+message CreateCategory {
+  string name = 1;
 }

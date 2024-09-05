@@ -7,6 +7,11 @@
       "root": "services/ssr",
       "sourceRoot": "services/ssr"
     },
+    "image": {
+      "type": "application",
+      "root": "services/image",
+      "sourceRoot": "services/image"
+    },
     "category": {
       "type": "application",
       "root": "services/category",

@@ -58,6 +58,7 @@ const FRONTEND_UPDATE_PATHS = ['frontend', 'libs/client', 'libs/shared', 'shared
 
 const UPDATE_INDICATORS: Record<string, string[]> = {
   './dist/services/auth/track.txt': ['libs/shared', 'libs/server', 'shared/server', 'shared/shared', 'services/auth'],
+  './dist/services/image/track.txt': ['libs/shared', 'libs/server', 'shared/server', 'shared/shared', 'services/image'],
   './dist/services/category/track.txt': [
     'libs/shared',
     'libs/server',
@@ -226,8 +227,9 @@ function importTransformer(context: ts.TransformationContext) {
     for (const part of FRONTEND_UPDATE_PATHS) {
       if (!sourceFile.fileName.includes(part)) continue;
 
+      reloadWebpage();
+
       if (isTailwindDone) {
-        reloadWebpage();
         isTailwindDone = false;
         isUpdateScheduled = false;
       } else isUpdateScheduled = true;

@@ -1,0 +1,9 @@
+image_path: ./images
+background: '#ffffff'
+hash_grouping: 4
+hash: sha256
+format: jpg
+sizes:
+  lg: 1000
+  sm: 256
+

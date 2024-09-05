@@ -10,3 +10,4 @@ const RefreshSecretSchema = z
 class RefreshSecretDto extends createZodDto(RefreshSecretSchema) {}
 
 export { RefreshSecretDto };
+

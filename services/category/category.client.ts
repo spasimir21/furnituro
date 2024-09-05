@@ -1,12 +1,12 @@
 import { ClientGrpc, ClientsModule, Transport } from '@nestjs/microservices';
-import { CategoryNamesDto } from './dto/categoryNames.dto';
+import { CreateCategoryDto } from './dto/createCategory.dto';
 import { Category } from './interface/category.interface';
 import { Observable } from 'rxjs';
 
 const CATEGORY_CLIENT = Symbol('$CategoryClient');
 
 interface CategoryClient {
-  ensureCategories(request: CategoryNamesDto): Observable<Category>;
+  createCategory(request: CreateCategoryDto): Observable<Category>;
 }
 
 // TODO: Add credentials

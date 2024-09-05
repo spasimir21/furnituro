@@ -29,20 +29,36 @@ const jsonBody = (request: FetchExecutorInput, params: any) => {
   return request;
 };
 
+const formBody = (request: FetchExecutorInput, params: any) => {
+  const formData = new FormData();
+
+  for (const key in params) {
+    if (!Array.isArray(params[key])) {
+      if (params[key] != null) formData.append(key, params[key]);
+      continue;
+    }
+
+    for (const value of params[key]) if (value != null) formData.append(key, value);
+  }
+
+  request.options.body = formData;
+  return request;
+};
+
 const service = (service: string) => (request: FetchExecutorInput) => {
   request.url.host = `${service}.${request.url.host}`;
   return request;
 };
 
-const path = (path: string) => {
-  if (path.startsWith('/')) path = path.slice(1);
-
-  return (request: FetchExecutorInput) => {
+const path =
+  <T>(path: string | ((params: T) => string)) =>
+  (request: FetchExecutorInput, params: T) => {
     if (!request.url.pathname.endsWith('/')) request.url.pathname += '/';
-    request.url.pathname += path;
+    let requestPath = typeof path === 'function' ? path(params) : path;
+    if (requestPath.startsWith('/')) requestPath = requestPath.slice(1);
+    request.url.pathname += requestPath;
     return request;
   };
-};
 
 const query =
   <T>(key: string, value: string | ((params: T) => string)) =>
@@ -58,4 +74,5 @@ const header =
     return request;
   };
 
-export { fetchInit, method, post, get, patch, _delete, jsonBody, service, path, header, query };
+export { fetchInit, method, post, get, patch, _delete, jsonBody, formBody, service, path, header, query };
+

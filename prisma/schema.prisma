@@ -18,6 +18,8 @@ enum AuthProvider {
 
 model User {
   id                 String        @id @default(uuid())
+  created_at         DateTime      @default(now())
+  last_modified_at   DateTime      @updatedAt
   authProvider       AuthProvider
   createdAt          DateTime      @default(now())
   email              String        @unique
@@ -29,6 +31,8 @@ model User {
 
 model Token {
   id                   String    @id @default(uuid())
+  created_at           DateTime  @default(now())
+  last_modified_at     DateTime  @updatedAt
   refreshSecret        String
   refreshExpiration    DateTime
   refreshDateOfDeath   DateTime
@@ -37,8 +41,17 @@ model Token {
 }
 
 model Category {
-  id       String    @id @default(uuid())
-  name     String    @unique
+  id                String    @id @default(uuid())
+  created_at        DateTime  @default(now())
+  last_modified_at  DateTime  @updatedAt
+  name              String
+  cover_photo_hash  String?
+  cover_photo       Image?    @relation(fields: [cover_photo_hash], references: [hash])
+}
 
-  // @@fulltext([name])
+model Image {
+  created_at            DateTime    @default(now())
+  last_modified_at      DateTime    @updatedAt
+  hash                  String      @id
+  dependent_categories  Category[]
 }

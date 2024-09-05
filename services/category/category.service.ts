@@ -1,8 +1,17 @@
-import { CategoryNamesDto } from './dto/categoryNames.dto';
+import type { Category as PrismaCategory } from '@prisma/client';
+import { CreateCategoryDto } from './dto/createCategory.dto';
+import { wrapResultAsync } from '@libs/shared/utils/result';
 import { Category } from './interface/category.interface';
+import { EditCategoryDto } from './dto/editCategory.dto';
 import { PrismaService } from '@libs/server/prisma';
 import { Inject, Injectable } from '@nestjs/common';
 import { CategoryConfig } from './config';
+
+const mapCategory = (category: PrismaCategory): Category => ({
+  id: category.id,
+  name: category.name,
+  coverPhoto: category.cover_photo_hash ?? null
+});
 
 @Injectable()
 class CategoryService {
@@ -11,47 +20,34 @@ class CategoryService {
     private readonly prismaService: PrismaService
   ) {}
 
-  ensureCategories(input: CategoryNamesDto): Promise<Category[]> {
-    return this.prismaService.$transaction(
-      input.names
-        .map(name => name.trim().toLowerCase())
-        .filter(name => name.length >= 3)
-        .map(name =>
-          this.prismaService.category.upsert({
-            where: { name },
-            update: {},
-            create: { name }
-          })
-        )
-    );
+  async deleteCategory(id: string) {
+    await this.prismaService.category.delete({ where: { id } });
   }
 
-  searchCategories(search: string = ''): Promise<Category[]> {
-    const query = search.trim().toLowerCase();
-    if (query.length < 3) return this.getTopCategories();
+  async getAllCategories(): Promise<Category[]> {
+    const categories = await this.prismaService.category.findMany();
+    return categories.map(mapCategory);
+  }
 
-    return this.prismaService.category.findMany({
-      where: {
-        name: {
-          contains: query
-        }
-      },
-      orderBy: {
-        _relevance: {
-          fields: ['name'],
-          search: query,
-          sort: 'desc'
-        }
-      },
-      take: this.config.categorySearchMaxResultCount
+  editCategory(id: string, input: EditCategoryDto) {
+    return wrapResultAsync(async (): Promise<Category> => {
+      const newCategory = await this.prismaService.category.update({
+        where: { id },
+        data: { name: input.name, cover_photo_hash: input.coverPhoto }
+      });
+
+      return mapCategory(newCategory);
     });
   }
 
-  private getTopCategories(): Promise<Category[]> {
-    return this.prismaService.category.findMany({
-      take: this.config.categorySearchMaxResultCount
+  async createCategory(input: CreateCategoryDto): Promise<Category> {
+    const category = await this.prismaService.category.create({
+      data: { name: input.name, cover_photo_hash: input.coverPhoto }
     });
+
+    return mapCategory(category);
   }
 }
 
 export { CategoryService };
+
