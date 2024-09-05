@@ -3,6 +3,9 @@
 127.0.0.1 furnituro.com
 127.0.0.1 image.furnituro.com
 127.0.0.1 category.furnituro.com
+127.0.0.1 product.furnituro.com
+127.0.0.1 order.furnituro.com
+127.0.0.1 feedback.furnituro.com
 127.0.0.1 auth.furnituro.com
 127.0.0.1 user.furnituro.com
 127.0.0.1 rating.furnituro.com

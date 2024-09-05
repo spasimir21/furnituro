@@ -16,3 +16,4 @@ import { Module } from '@nestjs/common';
 class CategoryModule {}
 
 export { CategoryModule };
+

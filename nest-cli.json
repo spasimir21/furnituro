@@ -17,6 +17,21 @@
       "root": "services/category",
       "sourceRoot": "services/category"
     },
+    "product": {
+      "type": "application",
+      "root": "services/product",
+      "sourceRoot": "services/product"
+    },
+    "order": {
+      "type": "application",
+      "root": "services/order",
+      "sourceRoot": "services/order"
+    },
+    "feedback": {
+      "type": "application",
+      "root": "services/feedback",
+      "sourceRoot": "services/feedback"
+    },
     "user": {
       "type": "application",
       "root": "services/user",

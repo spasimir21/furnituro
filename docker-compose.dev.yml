@@ -15,6 +15,9 @@ services:
       - furnituro-ssr
       - furnituro-image
       - furnituro-category
+      - furnituro-product
+      - furnituro-order
+      - furnituro-feedback
       - furnituro-user
       - furnituro-rating
       - furnituro-auth
@@ -72,6 +75,54 @@ services:
     volumes:
       - ./config/server.shared.yml:/app/config/server.shared.yml
       - ./config/category.yml:/app/config/category.yml
+      - ./dist:/app/dist
+      - ./proto:/app/proto
+    depends_on:
+      - furnituro-auth
+  furnituro-product:
+    build:
+      context: ./
+      dockerfile: ./containers/dev/service.dockerfile
+      args:
+        - SERVICE=product
+    env_file:
+      - ./env/.shared.env
+      - ./env/.product.env
+    volumes:
+      - ./config/server.shared.yml:/app/config/server.shared.yml
+      - ./config/product.yml:/app/config/product.yml
+      - ./dist:/app/dist
+      - ./proto:/app/proto
+    depends_on:
+      - furnituro-auth
+  furnituro-order:
+    build:
+      context: ./
+      dockerfile: ./containers/dev/service.dockerfile
+      args:
+        - SERVICE=order
+    env_file:
+      - ./env/.shared.env
+      - ./env/.order.env
+    volumes:
+      - ./config/server.shared.yml:/app/config/server.shared.yml
+      - ./config/order.yml:/app/config/order.yml
+      - ./dist:/app/dist
+      - ./proto:/app/proto
+    depends_on:
+      - furnituro-auth
+  furnituro-feedback:
+    build:
+      context: ./
+      dockerfile: ./containers/dev/service.dockerfile
+      args:
+        - SERVICE=feedback
+    env_file:
+      - ./env/.shared.env
+      - ./env/.feedback.env
+    volumes:
+      - ./config/server.shared.yml:/app/config/server.shared.yml
+      - ./config/feedback.yml:/app/config/feedback.yml
       - ./dist:/app/dist
       - ./proto:/app/proto
     depends_on:

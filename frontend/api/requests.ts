@@ -25,6 +25,27 @@ import { CreateCategoryDto } from '@services/category/dto/createCategory.dto';
 import { DeleteCategoryDto } from '@services/category/dto/deleteCategory.dto';
 import { EditCategoryDto } from '@services/category/dto/editCategory.dto';
 
+const product = endpoints(
+  {
+    request: service(Service.Product)
+  },
+  {}
+);
+
+const order = endpoints(
+  {
+    request: service(Service.Order)
+  },
+  {}
+);
+
+const feedback = endpoints(
+  {
+    request: service(Service.Feedback)
+  },
+  {}
+);
+
 const image = endpoints(
   {
     request: service(Service.Image)
@@ -91,7 +112,7 @@ const requests = endpoints(
     response: catchHttpError,
     error: combine(toHttpError, sendErrorToNotification)
   }),
-  { image, category, user, rating, auth: authEndpoints }
+  { image, product, order, feedback, category, user, rating, auth: authEndpoints }
 );
 
 export { requests };
