@@ -66,6 +66,21 @@ const UPDATE_INDICATORS: Record<string, string[]> = {
     'shared/shared',
     'services/category'
   ],
+  './dist/services/product/track.txt': [
+    'libs/shared',
+    'libs/server',
+    'shared/server',
+    'shared/shared',
+    'services/product'
+  ],
+  './dist/services/order/track.txt': ['libs/shared', 'libs/server', 'shared/server', 'shared/shared', 'services/order'],
+  './dist/services/feedback/track.txt': [
+    'libs/shared',
+    'libs/server',
+    'shared/server',
+    'shared/shared',
+    'services/feedback'
+  ],
   './dist/services/user/track.txt': ['libs/shared', 'libs/server', 'shared/server', 'shared/shared', 'services/user'],
   './dist/services/rating/track.txt': [
     'libs/shared',
