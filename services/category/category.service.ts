@@ -21,7 +21,7 @@ class CategoryService {
   ) {}
 
   async deleteCategory(id: string) {
-    await this.prismaService.category.delete({ where: { id } });
+    await this.prismaService.category.delete({ where: { id, products: { none: {} } } });
   }
 
   async getAllCategories(): Promise<Category[]> {

@@ -6,7 +6,8 @@ function ProtectedRoute({ element }: { element: React.JSX.Element }) {
   const location = useLocation();
   const userData = useUser();
 
-  return userData ? element : <Navigate to={`/auth/login?redirectPath=${encodeURIComponent(location.pathname)}`} />;
+  return userData ? element : <Navigate to={`/?redirectPath=${encodeURIComponent(location.pathname)}`} />;
 }
 
 export { ProtectedRoute };
+

@@ -40,6 +40,27 @@ model Token {
   user                 User      @relation(fields: [userId], references: [id])
 }
 
+model Product {
+  id                 String    @id @default(uuid())
+  created_at         DateTime  @default(now())
+  last_modified_at   DateTime  @updatedAt
+  name               String
+  short_description  String
+  description        String
+  price              Int
+  originalPrice      Int
+  discount           Int       @default(0)
+  quantity           Int
+  mark_as_new        Boolean   @default(false)
+  photos             Image[]
+  sizes              String[]
+  colors             String[]
+  rating             Int       @default(0)
+  categories         Category[]
+  orderedProducts    OrderedProduct[]
+  reviews            Review[]
+}
+
 model Category {
   id                String    @id @default(uuid())
   created_at        DateTime  @default(now())
@@ -47,6 +68,68 @@ model Category {
   name              String
   cover_photo_hash  String?
   cover_photo       Image?    @relation(fields: [cover_photo_hash], references: [hash])
+  products          Product[]
+}
+
+model OrderedProduct {
+  id                 String    @id @default(uuid())
+  created_at         DateTime  @default(now())
+  last_modified_at   DateTime  @updatedAt
+  quantity           Int
+  price_for_one      Int
+  size               String
+  color              String
+  product_id         String
+  product            Product  @relation(fields: [product_id], references: [id])
+  order_id           String
+  order              Order    @relation(fields: [order_id], references: [id])
+}
+
+model Order {
+  id                 String    @id @default(uuid())
+  created_at         DateTime  @default(now())
+  last_modified_at   DateTime  @updatedAt
+  products           OrderedProduct[]
+  total_price        Int
+  first_name         String
+  last_name          String
+  company_name       String?
+  country            String
+  city               String
+  address            String
+  postal_code        Int
+  phone_number       String
+  email              String
+  extra_information  String?
+  is_paid            Boolean   @default(false)
+}
+
+model Review {
+  id                 String    @id @default(uuid())
+  created_at         DateTime  @default(now())
+  last_modified_at   DateTime  @updatedAt
+  rating             Int
+  comment            String?
+  product_id         String
+  product            Product   @relation(fields: [product_id], references: [id], onDelete: Cascade)
+}
+
+model Feedback {
+  id                 String    @id @default(uuid())
+  created_at         DateTime  @default(now())
+  last_modified_at   DateTime  @updatedAt
+  name               String
+  email              String
+  subject            String
+  message            String
+  is_archived        Boolean   @default(false)
+}
+
+model SubscribedEmail {
+  id                 String    @id @default(uuid())
+  created_at         DateTime  @default(now())
+  last_modified_at   DateTime  @updatedAt
+  email              String    @unique
 }
 
 model Image {
@@ -54,4 +137,5 @@ model Image {
   last_modified_at      DateTime    @updatedAt
   hash                  String      @id
   dependent_categories  Category[]
+  dependent_products    Product[]
 }

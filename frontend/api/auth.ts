@@ -178,8 +178,7 @@ async function authenticatedExecutor(request: FetchExecutorInput) {
 
   const res = await fetchExecutor(await authenticationHeader(request, {}, {}));
 
-  if (res.status === 403)
-    window.location.href = `/auth/login?redirectPath=${encodeURIComponent(window.location.pathname)}`;
+  if (res.status === 403) window.location.href = `/?redirectPath=${encodeURIComponent(window.location.pathname)}`;
 
   return res;
 }
@@ -237,3 +236,4 @@ export {
   serviceAuthenticatedExecutor,
   userDataAtom
 };
+
